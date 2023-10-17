@@ -2,59 +2,35 @@ package com.partiurole.partiurole.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.islamkhsh.CardSliderViewPager;
 import com.partiurole.partiurole.R;
+import com.partiurole.partiurole.adapter.EventsAdapter;
+import com.partiurole.partiurole.adapter.FavoritesAdapter;
+import com.partiurole.partiurole.dao.EventDAO;
+import com.partiurole.partiurole.model.Event;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FavoritesFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+
 public class FavoritesFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     public FavoritesFragment() {
-        // Required empty public constructor
-    }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FavoritesFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FavoritesFragment newInstance(String param1, String param2) {
-        FavoritesFragment fragment = new FavoritesFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
@@ -62,5 +38,22 @@ public class FavoritesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_favorites, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+//        ArrayList<Event> events = new ArrayList<Event>();
+//        events.add(new Event("1", "Event 1", "2020-01-01", 10.0, 20.0, "All", "Location 1", "City 1", "Region 1", "Maps URL 1", "Event URL 1", "Opening Time 1", "Start Time 1", "Principal Attraction Time 1", "Description 1", "Image URL 1", "Attractions 1", false));
+//        events.add(new Event("2", "Event 2", "2020-01-02", 20.0, 30.0, "All", "Location 2", "City 2", "Region 2", "Maps URL 2", "Event URL 2", "Opening Time 2", "Start Time 2", "Principal Attraction Time 2", "Description 2", "Image URL 2", "Attractions 2", true));
+
+        EventDAO eventDAO = new EventDAO();
+        ArrayList<Event> events = eventDAO.getAllFavorites();
+
+        RecyclerView recyclerView = view.findViewById(R.id.viewFavorites);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(new FavoritesAdapter(events));
+
+//        cardSliderViewPager.setAdapter(new EventsAdapter(events));
+
     }
 }

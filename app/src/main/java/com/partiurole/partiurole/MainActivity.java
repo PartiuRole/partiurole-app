@@ -4,15 +4,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import com.github.islamkhsh.CardSliderViewPager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.partiurole.partiurole.adapter.EventsAdapter;
+import com.partiurole.partiurole.dao.EventDAO;
 import com.partiurole.partiurole.fragment.FavoritesFragment;
 import com.partiurole.partiurole.fragment.HomeFragment;
 import com.partiurole.partiurole.fragment.SettingsFragment;
 import com.partiurole.partiurole.model.Event;
+import com.partiurole.partiurole.util.MyApplication;
 
 import java.util.ArrayList;
 
@@ -21,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     HomeFragment homeFragment = new HomeFragment();
     FavoritesFragment favoritesFragment = new FavoritesFragment();
     SettingsFragment settingsFragment = new SettingsFragment();
-
+    private static SQLiteDatabase db = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView navigation =  findViewById(R.id.bottom_navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        DataBaseHelper persistenceHelper = DataBaseHelper.getInstance();
+        db = persistenceHelper.getWritableDatabase();
 
         loadFragment(homeFragment);
     }

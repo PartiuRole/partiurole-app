@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.InfoFragment" >
+    tools:context=".fragment.InfoActivity" >
 
     <ScrollView
         android:layout_width="0dp"
@@ -99,7 +99,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/imageView9" />
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/txtInfoLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -109,12 +109,12 @@
                 app:layout_constraintTop_toTopOf="@+id/imageView9" />
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/txtInfoDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView10"
-                app:layout_constraintStart_toStartOf="@+id/textView5"
+                app:layout_constraintStart_toStartOf="@+id/txtInfoLocation"
                 app:layout_constraintTop_toTopOf="@+id/imageView10" />
 
             <TextView
@@ -128,7 +128,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/imageView10" />
 
             <TextView
-                android:id="@+id/txtAttraction"
+                android:id="@+id/txtInfoAttraction"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -144,11 +144,11 @@
                 android:layout_marginTop="8dp"
                 android:text="@string/generalInfo"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/txtAttraction"
-                app:layout_constraintTop_toBottomOf="@+id/txtAttraction" />
+                app:layout_constraintStart_toStartOf="@+id/txtInfoAttraction"
+                app:layout_constraintTop_toBottomOf="@+id/txtInfoAttraction" />
 
             <TextView
-                android:id="@+id/textView10"
+                android:id="@+id/txtInfoGeneralInfo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"

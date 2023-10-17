@@ -1,16 +1,12 @@
 package com.partiurole.partiurole.adapter;
 
 import android.content.Intent;
-import android.media.Image;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,14 +15,13 @@ import com.partiurole.partiurole.R;
 import com.partiurole.partiurole.fragment.InfoActivity;
 import com.partiurole.partiurole.model.Event;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
-public class EventsAdapter extends CardSliderAdapter<EventsAdapter.EventViewHolder> {
+public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.EventViewHolder> {
 
     private ArrayList<Event> events;
 
-    public EventsAdapter(ArrayList<Event> events){
+    public FavoritesAdapter(ArrayList<Event> events){
         this.events = events;
     }
 
@@ -42,7 +37,7 @@ public class EventsAdapter extends CardSliderAdapter<EventsAdapter.EventViewHold
     }
 
     @Override
-    public void bindVH(@NonNull EventsAdapter.EventViewHolder eventViewHolder, int i) {
+    public void onBindViewHolder(@NonNull EventViewHolder eventViewHolder, int i) {
         Event event = events.get(i);
 
         TextView txtName = (TextView) eventViewHolder.itemView.findViewById(R.id.txtName);
