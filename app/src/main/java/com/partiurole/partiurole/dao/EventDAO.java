@@ -39,7 +39,7 @@ public class EventDAO {
         DataBaseHelper persistenceHelper = DataBaseHelper.getInstance();
         db = persistenceHelper.getWritableDatabase();
         long id = db.insert(TABLE_NAME, null, cv);
-        db.close();
+//        db.close();
         return id;
     }
 
@@ -51,7 +51,7 @@ public class EventDAO {
         DataBaseHelper persistenceHelper = DataBaseHelper.getInstance();
         db = persistenceHelper.getWritableDatabase();
         db.update(TABLE_NAME, cv, COLUMN_ID + " = ?", valuesToReplace);
-        db.close();
+//        db.close();
         return e;
     }
 
@@ -62,7 +62,7 @@ public class EventDAO {
         DataBaseHelper persistenceHelper = DataBaseHelper.getInstance();
         db = persistenceHelper.getWritableDatabase();
         db.delete(TABLE_NAME, COLUMN_ID + " = ?", valuesToReplace);
-        db.close();
+//        db.close();
         return e;
     }
 
@@ -86,7 +86,7 @@ public class EventDAO {
                 events.add(e);
             } while (c.moveToNext());
         }
-        db.close();
+//        db.close();
         return events;
     }
 
@@ -108,7 +108,7 @@ public class EventDAO {
                 e.setIsFavorite(c.getInt(c.getColumnIndex(COLUMN_FAVORITE)) > 0);
             } while (c.moveToNext());
         }
-        db.close();
+//        db.close();
         return e;
     }
 
@@ -133,7 +133,7 @@ public class EventDAO {
             } while (c.moveToNext());
         }
         c.close();
-        db.close();
+//        db.close();
         return events;
     }
 
