@@ -18,8 +18,9 @@ public class Event {
     private String description;
     private String imageUrl;
     private String attractions;
+    private boolean isFavorite;
 
-    public Event(String id, String name, String date, Double minPrice, Double maxPrice, String ageGroup, String location, String city, String region, String mapsUrl, String eventUrl, String openingTime, String startTime, String principalAttractionTime, String description, String imageUrl, String attractions) {
+    public Event(String id, String name, String date, Double minPrice, Double maxPrice, String ageGroup, String location, String city, String region, String mapsUrl, String eventUrl, String openingTime, String startTime, String principalAttractionTime, String description, String imageUrl, String attractions, boolean isFavorite) {
         this.id = id;
         this.name = name;
         this.date = date;
@@ -37,6 +38,11 @@ public class Event {
         this.description = description;
         this.imageUrl = imageUrl;
         this.attractions = attractions;
+        this.isFavorite = isFavorite;
+    }
+
+    public Event(){
+
     }
 
     public String getId() {
@@ -174,4 +180,14 @@ public class Event {
     public void setAttractions(String attractions) {
         this.attractions = attractions;
     }
+
+    public boolean getIsFavorite() {
+        return isFavorite;
+    }
+
+    public void setIsFavorite(boolean isFavorite) {
+        this.isFavorite = isFavorite;
+    }
+
+
 }
