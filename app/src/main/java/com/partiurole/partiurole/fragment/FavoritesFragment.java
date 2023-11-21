@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import com.github.islamkhsh.CardSliderViewPager;
 import com.partiurole.partiurole.R;
@@ -22,6 +23,8 @@ import com.partiurole.partiurole.model.Event;
 import java.util.ArrayList;
 
 public class FavoritesFragment extends Fragment {
+
+    FavoritesAdapter favoritesAdapter;
 
     public FavoritesFragment() {
 
@@ -49,9 +52,27 @@ public class FavoritesFragment extends Fragment {
         EventDAO eventDAO = new EventDAO();
         ArrayList<Event> events = eventDAO.getAllFavorites();
 
+        favoritesAdapter = new FavoritesAdapter(events);
+
         RecyclerView recyclerView = view.findViewById(R.id.viewFavorites);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(new FavoritesAdapter(events));
+        recyclerView.setAdapter(favoritesAdapter);
+
+        SearchView txtSearchFav = (SearchView) view.findViewById(R.id.txtSearchFav);
+
+        txtSearchFav.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+//                favoritesAdapter.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+//                favoritesAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
 
 //        cardSliderViewPager.setAdapter(new EventsAdapter(events));
 

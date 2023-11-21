@@ -56,7 +56,7 @@ public class EventsAdapter extends CardSliderAdapter<EventsAdapter.EventViewHold
 
         TextView txtPrice = (TextView) eventViewHolder.itemView.findViewById(R.id.txtPrice);
         txtPrice.setText("-");
-        if (event.getMinPrice() > 0 && event.getMaxPrice() > 0) {
+        if (event.getMinPrice() > 0 || event.getMaxPrice() > 0) {
             txtPrice.setText(event.getMinPrice().toString() + " - " + event.getMaxPrice().toString());
             if (event.getMinPrice() == event.getMaxPrice())
                 txtPrice.setText(event.getMinPrice().toString());
@@ -67,26 +67,6 @@ public class EventsAdapter extends CardSliderAdapter<EventsAdapter.EventViewHold
             imgEvent.setImageResource(R.drawable.event);
         else
             imgEvent.setImageResource(R.drawable.event2);
-
-        ImageView imgFavorites = (ImageView) eventViewHolder.itemView.findViewById(R.id.imgFavorites);
-        if (event.getIsFavorite())
-            imgFavorites.setImageResource(R.drawable.ic_heart);
-        else
-            imgFavorites.setImageResource(R.drawable.ic_heart_outline);
-
-        imgFavorites.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (event.getIsFavorite()) {
-                    imgFavorites.setImageResource(R.drawable.ic_heart_outline);
-                    event.setIsFavorite(false);
-                }
-                else {
-                    imgFavorites.setImageResource(R.drawable.ic_heart);
-                    event.setIsFavorite(true);
-                }
-            }
-        });
 
         eventViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
