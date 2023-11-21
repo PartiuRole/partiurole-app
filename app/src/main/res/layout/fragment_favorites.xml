@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".fragment.FavoritesFragment">
 
+    <TextView
+        android:id="@+id/txtFav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="12dp"
+        android:text="@string/favorites"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgBgSearchFav" />
+
     <ImageView
         android:id="@+id/imgBgSearchFav"
         android:layout_width="wrap_content"
@@ -38,7 +50,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgBgSearchFav" />
+        app:layout_constraintTop_toBottomOf="@+id/txtFav" />
 
     <SearchView
         android:id="@+id/txtSearchFav"
