@@ -18,6 +18,7 @@ public class EventDAO {
     public static final String COLUMN_MAX_PRICE = "max_price";
     public static final String COLUMN_DESCRIPTION = "description";
     public static final String COLUMN_IMAGE = "image";
+    public static final String COLUMN_EVENT_URL = "eventUrl";
     public static final String COLUMN_FAVORITE = "favorite";
 
     private static SQLiteDatabase db = null;
@@ -31,6 +32,7 @@ public class EventDAO {
             + COLUMN_MAX_PRICE + " REAL,"
             + COLUMN_DESCRIPTION + " TEXT,"
             + COLUMN_IMAGE + " TEXT,"
+            + COLUMN_EVENT_URL + " TEXT,"
             + COLUMN_FAVORITE + " INTEGER DEFAULT 0"
             + ")";
 
@@ -82,6 +84,7 @@ public class EventDAO {
                 e.setMaxPrice(c.getDouble(c.getColumnIndex(COLUMN_MAX_PRICE)));
                 e.setDescription(c.getString(c.getColumnIndex(COLUMN_DESCRIPTION)));
                 e.setImageUrl(c.getString(c.getColumnIndex(COLUMN_IMAGE)));
+                e.setEventUrl(c.getString(c.getColumnIndex(COLUMN_EVENT_URL)));
                 e.setIsFavorite(c.getInt(c.getColumnIndex(COLUMN_FAVORITE)) > 0);
                 events.add(e);
             } while (c.moveToNext());
@@ -89,6 +92,32 @@ public class EventDAO {
 //        db.close();
         return events;
     }
+
+    public ArrayList<Event> getAllFree(){
+        DataBaseHelper persistenceHelper = DataBaseHelper.getInstance();
+        db = persistenceHelper.getWritableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_MIN_PRICE + " = 0", null);
+        ArrayList<Event> events = new ArrayList<>();
+        if (c.moveToFirst()) {
+            do {
+                Event e = new Event();
+                e.setId(c.getString(c.getColumnIndex(COLUMN_ID)));
+                e.setName(c.getString(c.getColumnIndex(COLUMN_NAME)));
+                e.setLocation(c.getString(c.getColumnIndex(COLUMN_LOCATION)));
+                e.setDate(c.getString(c.getColumnIndex(COLUMN_DATE)));
+                e.setMinPrice(c.getDouble(c.getColumnIndex(COLUMN_MIN_PRICE)));
+                e.setMaxPrice(c.getDouble(c.getColumnIndex(COLUMN_MAX_PRICE)));
+                e.setDescription(c.getString(c.getColumnIndex(COLUMN_DESCRIPTION)));
+                e.setImageUrl(c.getString(c.getColumnIndex(COLUMN_IMAGE)));
+                e.setEventUrl(c.getString(c.getColumnIndex(COLUMN_EVENT_URL)));
+                e.setIsFavorite(c.getInt(c.getColumnIndex(COLUMN_FAVORITE)) > 0);
+                events.add(e);
+            } while (c.moveToNext());
+        }
+//        db.close();
+        return events;
+    }
+
 
     public Event getById(String id){
         DataBaseHelper persistenceHelper = DataBaseHelper.getInstance();
@@ -105,6 +134,7 @@ public class EventDAO {
                 e.setMaxPrice(c.getDouble(c.getColumnIndex(COLUMN_MAX_PRICE)));
                 e.setDescription(c.getString(c.getColumnIndex(COLUMN_DESCRIPTION)));
                 e.setImageUrl(c.getString(c.getColumnIndex(COLUMN_IMAGE)));
+                e.setEventUrl(c.getString(c.getColumnIndex(COLUMN_EVENT_URL)));
                 e.setIsFavorite(c.getInt(c.getColumnIndex(COLUMN_FAVORITE)) > 0);
             } while (c.moveToNext());
         }
@@ -128,6 +158,7 @@ public class EventDAO {
                 e.setMaxPrice(c.getDouble(c.getColumnIndex(COLUMN_MAX_PRICE)));
                 e.setDescription(c.getString(c.getColumnIndex(COLUMN_DESCRIPTION)));
                 e.setImageUrl(c.getString(c.getColumnIndex(COLUMN_IMAGE)));
+                e.setEventUrl(c.getString(c.getColumnIndex(COLUMN_EVENT_URL)));
                 e.setIsFavorite(c.getInt(c.getColumnIndex(COLUMN_FAVORITE)) > 0);
                 events.add(e);
             } while (c.moveToNext());
@@ -147,6 +178,7 @@ public class EventDAO {
         contentValues.put(COLUMN_MAX_PRICE, event.getMaxPrice());
         contentValues.put(COLUMN_DESCRIPTION, event.getDescription());
         contentValues.put(COLUMN_IMAGE, event.getImageUrl());
+        contentValues.put(COLUMN_EVENT_URL, event.getEventUrl());
         contentValues.put(COLUMN_FAVORITE, event.getIsFavorite());
         return contentValues;
     }
@@ -161,15 +193,16 @@ public class EventDAO {
         event.setMaxPrice(contentValues.getAsDouble(COLUMN_MAX_PRICE));
         event.setDescription(contentValues.getAsString(COLUMN_DESCRIPTION));
         event.setImageUrl(contentValues.getAsString(COLUMN_IMAGE));
+        event.setEventUrl(contentValues.getAsString(COLUMN_EVENT_URL));
         event.setIsFavorite(contentValues.getAsBoolean(COLUMN_FAVORITE));
         return event;
     }
 
     public static final String SCRIPT_INSERT_EVENT1 =
-            "INSERT INTO " + TABLE_NAME + " VALUES (1, 'Rock in Rio', 'Rio de Janeiro', '2017-09-15', 350.00, 700.00, 'O Rock in Rio é um festival de música idealizado pelo empresário brasileiro Roberto Medina pela primeira vez em 1985, sendo, desde sua criação, reconhecidamente, como o maior festival musical do planeta.', 'https://s3-sa-east-1.amazonaws.com/ingresso-certo/images/eventos/rock-in-rio-2017.jpg', 0);";
+            "INSERT INTO " + TABLE_NAME + " VALUES (1, 'Rock in Rio', 'Rio de Janeiro', '2017-09-15', 350.00, 700.00, 'O Rock in Rio é um festival de música idealizado pelo empresário brasileiro Roberto Medina pela primeira vez em 1985, sendo, desde sua criação, reconhecidamente, como o maior festival musical do planeta.', 'https://s3-sa-east-1.amazonaws.com/ingresso-certo/images/eventos/rock-in-rio-2017.jpg', 'https://minhaentrada.com.br/', 0);";
     public static final String SCRIPT_INSERT_EVENT2 =
-            "INSERT INTO " + TABLE_NAME + " VALUES (2, 'Lollapalooza', 'São Paulo', '2017-03-25', 350.00, 700.00, 'O Lollapalooza Brasil é um festival de música anual que acontece na cidade de São Paulo, Brasil. Criado em 2011 como ramificação do festival norte-americano Lollapalooza, teve sua primeira edição brasileira realizada em 7 e 8 de abril de 2012, no Jockey Club de São Paulo.', 'https://s3-sa-east-1.amazonaws.com/ingresso-certo/images/eventos/lollapalooza-2017.jpg', 0);";
+            "INSERT INTO " + TABLE_NAME + " VALUES (2, 'Lollapalooza', 'São Paulo', '2017-03-25', 75.00, 200.00, 'O Lollapalooza Brasil é um festival de música anual que acontece na cidade de São Paulo, Brasil. Criado em 2011 como ramificação do festival norte-americano Lollapalooza, teve sua primeira edição brasileira realizada em 7 e 8 de abril de 2012, no Jockey Club de São Paulo.', 'https://s3-sa-east-1.amazonaws.com/ingresso-certo/images/eventos/lollapalooza-2017.jpg', 'https://minhaentrada.com.br/', 0);";
     public static final String SCRIPT_INSERT_EVENT3 =
-            "INSERT INTO " + TABLE_NAME + " VALUES (3, 'Tomorrowland', 'Itu', '2017-04-21', 350.00, 700.00, 'Tomorrowland é um festival de música eletrônica realizado anualmente na Bélgica, realizado pela ID&T Belgium. É considerado um dos maiores festivais de música eletrônica do mundo, tendo recebido 180 mil pessoas em 2014, de 214 países diferentes.', 'https://s3-sa-east-1.amazonaws.com/ingresso-certo/images/eventos/tomorrowland-2017.jpg', 0);";
+            "INSERT INTO " + TABLE_NAME + " VALUES (3, 'Tomorrowland', 'Itu', '2017-04-21', 0.0, 700.00, 'Tomorrowland é um festival de música eletrônica realizado anualmente na Bélgica, realizado pela ID&T Belgium. É considerado um dos maiores festivais de música eletrônica do mundo, tendo recebido 180 mil pessoas em 2014, de 214 países diferentes.', 'https://s3-sa-east-1.amazonaws.com/ingresso-certo/images/eventos/tomorrowland-2017.jpg', 'https://minhaentrada.com.br/', 0);";
 
     }

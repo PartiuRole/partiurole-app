@@ -50,6 +50,7 @@ public class HomeFragment extends Fragment {
 
         EventDAO eventDAO = new EventDAO();
         ArrayList<Event> events = eventDAO.getAll();
+        ArrayList<Event> eventsFree = eventDAO.getAllFree();
 
         CardSliderViewPager sliderNearYou = (CardSliderViewPager) getView().findViewById(R.id.sliderNearYou);
         sliderNearYou.setAdapter(new EventsAdapter(events));
@@ -58,7 +59,7 @@ public class HomeFragment extends Fragment {
         sliderMostViewed.setAdapter(new EventsAdapter(events));
 
         CardSliderViewPager sliderFree = (CardSliderViewPager) getView().findViewById(R.id.sliderFree);
-        sliderFree.setAdapter(new EventsAdapter(events));
+        sliderFree.setAdapter(new EventsAdapter(eventsFree));
 
     }
 }
