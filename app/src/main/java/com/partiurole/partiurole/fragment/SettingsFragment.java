@@ -5,18 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.SearchView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.github.islamkhsh.CardSliderViewPager;
 import com.partiurole.partiurole.R;
-import com.partiurole.partiurole.adapter.EventsAdapter;
-import com.partiurole.partiurole.dao.EventDAO;
-import com.partiurole.partiurole.model.Event;
-
-import java.util.ArrayList;
+import com.partiurole.partiurole.util.Sync;
 
 public class SettingsFragment extends Fragment {
 
@@ -41,7 +35,13 @@ public class SettingsFragment extends Fragment {
         btnSync.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Sync sync = new Sync(new Sync.OnSyncListener() {
+                    @Override
+                    public void onSyncFinished() {
+//                        loadFragment(homeFragment);
+                    }
+                });
+                sync.execute();
             }
         });
     }
