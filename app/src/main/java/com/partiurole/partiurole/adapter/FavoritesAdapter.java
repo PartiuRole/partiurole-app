@@ -16,7 +16,9 @@ import com.github.islamkhsh.CardSliderAdapter;
 import com.partiurole.partiurole.R;
 import com.partiurole.partiurole.fragment.InfoActivity;
 import com.partiurole.partiurole.model.Event;
+import com.partiurole.partiurole.util.DateParser;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.EventViewHolder> {
@@ -50,14 +52,16 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Even
         txtLocation.setText(event.getLocation());
 
         TextView txtDate = (TextView) eventViewHolder.itemView.findViewById(R.id.txtDate);
-        txtDate.setText(event.getDate());
+        try {
+            txtDate.setText(DateParser.formatDate(event.getDate()));
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
 
         TextView txtPrice = (TextView) eventViewHolder.itemView.findViewById(R.id.txtPrice);
-        txtPrice.setText("-");
-        if (event.getMinPrice() > 0 && event.getMaxPrice() > 0) {
-            txtPrice.setText(event.getMinPrice().toString() + " - " + event.getMaxPrice().toString());
-            if (event.getMinPrice() == event.getMaxPrice())
-                txtPrice.setText(event.getMinPrice().toString());
+        txtPrice.setText("Consulte");
+        if (event.getPrice() > 0) {
+                txtPrice.setText(event.getPrice().toString());
         }
 
         ImageView imgEvent = (ImageView) eventViewHolder.itemView.findViewById(R.id.imgEvent);
@@ -69,10 +73,9 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Even
         eventViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // open InfoActivity
                 Intent myIntent = new Intent(eventViewHolder.itemView.getContext(), InfoActivity.class);
-                // pass event
-                myIntent.putExtra("eventID", event.getId());
+
+                myIntent.putExtra("eventID", event.getUuid());
                 eventViewHolder.itemView.getContext().startActivity(myIntent);
             }
         });

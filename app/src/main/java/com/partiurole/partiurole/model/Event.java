@@ -1,56 +1,57 @@
 package com.partiurole.partiurole.model;
 
-public class Event {
-    private String id;
-    private String name;
-    private String date;
-    private Double minPrice;
-    private Double maxPrice;
-    private String ageGroup;
-    private String location;
-    private String city;
-    private String region;
-    private String mapsUrl;
-    private String eventUrl;
-    private String openingTime;
-    private String startTime;
-    private String principalAttractionTime;
-    private String description;
-    private String imageUrl;
-    private String attractions;
-    private boolean isFavorite;
+import com.google.gson.annotations.SerializedName;
 
-    public Event(String id, String name, String date, Double minPrice, Double maxPrice, String ageGroup, String location, String city, String region, String mapsUrl, String eventUrl, String openingTime, String startTime, String principalAttractionTime, String description, String imageUrl, String attractions, boolean isFavorite) {
-        this.id = id;
+public class Event {
+    @SerializedName("uuid")
+    private String uuid;
+    @SerializedName("name")
+    private String name;
+    @SerializedName("date")
+    private String date;
+    @SerializedName("price")
+    private Double price;
+    @SerializedName("description")
+    private String description;
+    @SerializedName("image_url")
+    private String image;
+    @SerializedName("url")
+    private String url;
+    @SerializedName("location_text")
+    private String location;
+    @SerializedName("location_url")
+    private String locationUrl;
+    @SerializedName("created_at")
+    private String createdAt;
+    @SerializedName("updated_at")
+    private String updatedAt;
+    private Boolean isFavorite;
+    private String imageBase64;
+
+    public Event(String uuid, String name, String date, Double price, String description, String image, String url, String location, String locationUrl, String createdAt, String updatedAt, Boolean isFavorite) {
+        this.uuid = uuid;
         this.name = name;
         this.date = date;
-        this.minPrice = minPrice;
-        this.maxPrice = maxPrice;
-        this.ageGroup = ageGroup;
-        this.location = location;
-        this.city = city;
-        this.region = region;
-        this.mapsUrl = mapsUrl;
-        this.eventUrl = eventUrl;
-        this.openingTime = openingTime;
-        this.startTime = startTime;
-        this.principalAttractionTime = principalAttractionTime;
+        this.price = price;
         this.description = description;
-        this.imageUrl = imageUrl;
-        this.attractions = attractions;
+        this.image = image;
+        this.url = url;
+        this.location = location;
+        this.locationUrl = locationUrl;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
         this.isFavorite = isFavorite;
+        this.imageBase64 = "";
     }
 
-    public Event(){
+    public Event(){}
 
+    public String getUuid() {
+        return uuid;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public String getName() {
@@ -69,125 +70,83 @@ public class Event {
         this.date = date;
     }
 
-    public Double getMinPrice() {
-        return minPrice;
+    public Double getPrice() {
+        return price == null ? 0.0 : price;
     }
 
-    public void setMinPrice(Double minPrice) {
-        this.minPrice = minPrice;
-    }
-
-    public Double getMaxPrice() {
-        return maxPrice;
-    }
-
-    public void setMaxPrice(Double maxPrice) {
-        this.maxPrice = maxPrice;
-    }
-
-    public String getAgeGroup() {
-        return ageGroup;
-    }
-
-    public void setAgeGroup(String ageGroup) {
-        this.ageGroup = ageGroup;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
-
-    public String getMapsUrl() {
-        return mapsUrl;
-    }
-
-    public void setMapsUrl(String mapsUrl) {
-        this.mapsUrl = mapsUrl;
-    }
-
-    public String getEventUrl() {
-        return eventUrl;
-    }
-
-    public void setEventUrl(String eventUrl) {
-        this.eventUrl = eventUrl;
-    }
-
-    public String getOpeningTime() {
-        return openingTime;
-    }
-
-    public void setOpeningTime(String openingTime) {
-        this.openingTime = openingTime;
-    }
-
-    public String getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
-    }
-
-    public String getPrincipalAttractionTime() {
-        return principalAttractionTime;
-    }
-
-    public void setPrincipalAttractionTime(String principalAttractionTime) {
-        this.principalAttractionTime = principalAttractionTime;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     public String getDescription() {
-        return description;
+        return description == null ? "" : description;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getImage() {
+        return image == null ? "" : image;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    public String getAttractions() {
-        return attractions;
+    public String getUrl() {
+        return url == null ? "" : url;
     }
 
-    public void setAttractions(String attractions) {
-        this.attractions = attractions;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    public boolean getIsFavorite() {
-        return isFavorite;
+    public String getCreatedAt() {
+        return createdAt;
     }
 
-    public void setIsFavorite(boolean isFavorite) {
-        this.isFavorite = isFavorite;
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
 
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public Boolean getIsFavorite() {
+        return isFavorite == null ? false : isFavorite;
+    }
+
+    public void setIsFavorite(Boolean favorite) {
+        isFavorite = favorite;
+    }
+
+    public String getLocation() {
+        return location == null ? "" : location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getLocationUrl() {
+        return locationUrl == null ? "" : locationUrl;
+    }
+
+    public void setLocationUrl(String locationUrl) {
+        this.locationUrl = locationUrl;
+    }
+
+    public String getImageBase64() {
+        return imageBase64 == null ? "" : imageBase64;
+    }
+
+    public void setImageBase64(String imageBase64) {
+        this.imageBase64 = imageBase64;
+    }
 }

@@ -1,7 +1,10 @@
 package com.partiurole.partiurole.adapter;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,8 +21,10 @@ import com.github.islamkhsh.CardSliderAdapter;
 import com.partiurole.partiurole.R;
 import com.partiurole.partiurole.fragment.InfoActivity;
 import com.partiurole.partiurole.model.Event;
+import com.partiurole.partiurole.util.DateParser;
 
 import java.io.Serializable;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public class EventsAdapter extends CardSliderAdapter<EventsAdapter.EventViewHolder> {
@@ -52,21 +57,23 @@ public class EventsAdapter extends CardSliderAdapter<EventsAdapter.EventViewHold
         txtLocation.setText(event.getLocation());
 
         TextView txtDate = (TextView) eventViewHolder.itemView.findViewById(R.id.txtDate);
-        txtDate.setText(event.getDate());
-
-        TextView txtPrice = (TextView) eventViewHolder.itemView.findViewById(R.id.txtPrice);
-        txtPrice.setText("-");
-        if (event.getMinPrice() > 0 || event.getMaxPrice() > 0) {
-            txtPrice.setText(event.getMinPrice().toString() + " - " + event.getMaxPrice().toString());
-            if (event.getMinPrice() == event.getMaxPrice())
-                txtPrice.setText(event.getMinPrice().toString());
+        try {
+            txtDate.setText(DateParser.formatDate(event.getDate()));
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
         }
 
-        ImageView imgEvent = (ImageView) eventViewHolder.itemView.findViewById(R.id.imgEvent);
-        if (i%2 == 0)
-            imgEvent.setImageResource(R.drawable.event);
-        else
-            imgEvent.setImageResource(R.drawable.event2);
+        TextView txtPrice = (TextView) eventViewHolder.itemView.findViewById(R.id.txtPrice);
+        txtPrice.setText("Consulte");
+        if (event.getPrice() > 0)
+            txtPrice.setText(event.getPrice().toString());
+
+        if (!event.getImageBase64().isEmpty()) {
+            ImageView imgEvent = (ImageView) eventViewHolder.itemView.findViewById(R.id.imgEvent);
+            byte[] decodedString = Base64.decode(event.getImageBase64(), Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            imgEvent.setImageBitmap(decodedByte);
+        }
 
         eventViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +81,7 @@ public class EventsAdapter extends CardSliderAdapter<EventsAdapter.EventViewHold
                 // open InfoActivity
                 Intent myIntent = new Intent(eventViewHolder.itemView.getContext(), InfoActivity.class);
                 // pass event
-                myIntent.putExtra("eventID", event.getId());
+                myIntent.putExtra("eventID", event.getUuid());
                 eventViewHolder.itemView.getContext().startActivity(myIntent);
 
             }

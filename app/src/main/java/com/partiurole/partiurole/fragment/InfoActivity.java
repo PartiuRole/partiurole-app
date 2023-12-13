@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Base64;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,12 +16,14 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.partiurole.partiurole.R;
 import com.partiurole.partiurole.dao.EventDAO;
 import com.partiurole.partiurole.model.Event;
+import com.partiurole.partiurole.util.DateParser;
 
 import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.text.ParseException;
 
 public class InfoActivity extends AppCompatActivity {
 
@@ -44,40 +47,24 @@ public class InfoActivity extends AppCompatActivity {
             txtLocation.setText(event.getLocation());
 
             TextView txtDate = (TextView) findViewById(R.id.txtInfoDate);
-            txtDate.setText(event.getDate());
-
-            TextView txtInfoAttraction = (TextView) findViewById(R.id.txtInfoAttraction);
-            txtInfoAttraction.setText(event.getAttractions());
+            try {
+                txtDate.setText(DateParser.formatDate(event.getDate()));
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
 
             TextView txtInfoGeneralInfo = (TextView) findViewById(R.id.txtInfoGeneralInfo);
             txtInfoGeneralInfo.setText(event.getDescription());
 
-//            TextView txtPrice = (TextView) findViewById(R.id.txtPrice);
-//            txtPrice.setText("-");
-//
-//            if (event.getMinPrice() > 0 && event.getMaxPrice() > 0) {
-//                txtPrice.setText(event.getMinPrice().toString() + " - " + event.getMaxPrice().toString());
-//                if (event.getMinPrice() == event.getMaxPrice())
-//                    txtPrice.setText(event.getMinPrice().toString());
-//            }
-
             ImageView imgBack = (ImageView) findViewById(R.id.imgBack);
             imgBack.setOnClickListener(v -> finish());
 
-//            ImageView imgEvent = (ImageView) findViewById(R.id.imgEvent);
-//            Bitmap bitmap = null;
-//            try {
-//                if (event.getImageUrl() != null) {
-////                    bitmap = BitmapFactory.decodeStream((InputStream) new URL(event.getImageUrl()).getContent());
-//                    String url = "https://www.melhoresdestinos.com.br/wp-content/uploads/2023/02/lollapalooza-brasil-hotel-passagem-aerea-capa.jpg";
-//                    bitmap = BitmapFactory.decodeStream((InputStream) new URL(url).getContent());
-//                } else {
-//                    bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.event);
-//                }
-//                imgEvent.setImageBitmap(bitmap);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
+            if (!event.getImageBase64().isEmpty()) {
+                ImageView imgEvent = (ImageView) findViewById(R.id.imgEventInfo);
+                byte[] decodedString = Base64.decode(event.getImageBase64(), Base64.DEFAULT);
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                imgEvent.setImageBitmap(decodedByte);
+            }
 
             ImageView imgFavorites = (ImageView) findViewById(R.id.imgFavorites);
             if (event.getIsFavorite()) {
@@ -99,13 +86,10 @@ public class InfoActivity extends AppCompatActivity {
 
             FloatingActionButton fabTicket = (FloatingActionButton) findViewById(R.id.fabTicket);
             fabTicket.setOnClickListener(v -> {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(event.getEventUrl()));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(event.getUrl()));
                 startActivity(browserIntent);
             });
 
         }
-
-
-
     }
 }
