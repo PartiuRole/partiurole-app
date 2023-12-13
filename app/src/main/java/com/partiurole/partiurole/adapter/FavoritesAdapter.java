@@ -40,7 +40,8 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Even
 
     @Override
     public EventViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_card_event, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_card_event_favorite, parent, false);
+
         return new EventViewHolder(view);
     }
 
