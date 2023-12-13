@@ -103,8 +103,10 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     try {
-                        if (event1.getUuid() != null && DateParser.isOldest(event1.getUpdatedAt(), event.getUpdatedAt())) {
-                            eventDAO.update(event);
+                        if (event1.getUuid() != null) {
+                            if (DateParser.isOldest(event1.getUpdatedAt(), event.getUpdatedAt())) {
+                                eventDAO.update(event);
+                            }
                         } else {
                             eventDAO.insert(event);
                         }

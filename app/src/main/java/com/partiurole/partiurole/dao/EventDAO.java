@@ -83,10 +83,14 @@ public class EventDAO {
         return e;
     }
 
-    public ArrayList<Event> getAll(){
+    public ArrayList<Event> getAll(String query){
         DataBaseHelper persistenceHelper = DataBaseHelper.getInstance();
         db = persistenceHelper.getWritableDatabase();
-        Cursor c = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        String querySQL = "";
+        if (query != "") {
+            querySQL = "AND " + COLUMN_NAME + " LIKE '%" + query + "%'";
+        }
+        Cursor c = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE 1=1 " + querySQL, null);
         ArrayList<Event> events = new ArrayList<>();
         if (c.moveToFirst()) {
             do {
@@ -135,10 +139,15 @@ public class EventDAO {
         return e;
     }
 
-    public ArrayList<Event> getAllFavorites() {
+    public ArrayList<Event> getAllFavorites(String query) {
         DataBaseHelper persistenceHelper = DataBaseHelper.getInstance();
         db = persistenceHelper.getWritableDatabase();
-        Cursor c = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_FAVORITE + " = 1", null);
+        String querySQL = "";
+        if (query != "") {
+            querySQL = "AND " + COLUMN_NAME + " LIKE '%" + query + "%'";
+        }
+
+        Cursor c = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_FAVORITE + " = 1 " + querySQL, null);
         ArrayList<Event> events = new ArrayList<>();
         if (c.moveToFirst()) {
             do {

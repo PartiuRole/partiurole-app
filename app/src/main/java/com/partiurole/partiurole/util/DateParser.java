@@ -9,7 +9,7 @@ public class DateParser {
     public static boolean isOldest(String date1, String date2) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'");
         if (date1 == null || date2 == null) {
-            return true;
+            return false;
         }
         Date d1 = sdf.parse(date1);
         Date d2 = sdf.parse(date2);

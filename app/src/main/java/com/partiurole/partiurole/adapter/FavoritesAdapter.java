@@ -1,6 +1,9 @@
 package com.partiurole.partiurole.adapter;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,11 +67,12 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Even
                 txtPrice.setText(event.getPrice().toString());
         }
 
-        ImageView imgEvent = (ImageView) eventViewHolder.itemView.findViewById(R.id.imgEvent);
-        if (i % 2 == 0)
-            imgEvent.setImageResource(R.drawable.event);
-        else
-            imgEvent.setImageResource(R.drawable.event2);
+        if (!event.getImageBase64().isEmpty()) {
+            ImageView imgEvent =(ImageView) eventViewHolder.itemView.findViewById(R.id.imgEvent);
+            byte[] decodedString = Base64.decode(event.getImageBase64(), Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            imgEvent.setImageBitmap(decodedByte);
+        }
 
         eventViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

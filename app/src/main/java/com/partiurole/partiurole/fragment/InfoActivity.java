@@ -1,16 +1,15 @@
 package com.partiurole.partiurole.fragment;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Base64;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.partiurole.partiurole.R;
@@ -18,11 +17,6 @@ import com.partiurole.partiurole.dao.EventDAO;
 import com.partiurole.partiurole.model.Event;
 import com.partiurole.partiurole.util.DateParser;
 
-import org.w3c.dom.Text;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.text.ParseException;
 
 public class InfoActivity extends AppCompatActivity {
