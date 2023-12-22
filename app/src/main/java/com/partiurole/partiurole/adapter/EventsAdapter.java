@@ -65,8 +65,8 @@ public class EventsAdapter extends CardSliderAdapter<EventsAdapter.EventViewHold
 
         TextView txtPrice = (TextView) eventViewHolder.itemView.findViewById(R.id.txtPrice);
         txtPrice.setText("Consulte");
-        if (event.getPrice() > 0)
-            txtPrice.setText(event.getPrice().toString());
+        if (Double.parseDouble(event.getPrice().replace(",", ".")) > 0)
+            txtPrice.setText(event.getPrice());
 
         if (!event.getImageBase64().isEmpty()) {
             ImageView imgEvent = (ImageView) eventViewHolder.itemView.findViewById(R.id.imgEvent);

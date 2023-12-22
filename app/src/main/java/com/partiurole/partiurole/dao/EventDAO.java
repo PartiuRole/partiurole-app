@@ -31,7 +31,7 @@ public class EventDAO {
             + COLUMN_LOCATION + " TEXT,"
             + COLUMN_LOCATION_URL + " TEXT,"
             + COLUMN_DATE + " TEXT,"
-            + COLUMN_PRICE + " REAL,"
+            + COLUMN_PRICE + " TEXT,"
             + COLUMN_DESCRIPTION + " TEXT,"
             + COLUMN_IMAGE + " TEXT,"
             + COLUMN_IMAGE_BASE64 + " TEXT,"
@@ -181,7 +181,7 @@ public class EventDAO {
         e.setUuid(c.getString(c.getColumnIndex(COLUMN_UUID)));
         e.setName(c.getString(c.getColumnIndex(COLUMN_NAME)));
         e.setDate(c.getString(c.getColumnIndex(COLUMN_DATE)));
-        e.setPrice(c.getDouble(c.getColumnIndex(COLUMN_PRICE)));
+        e.setPrice(c.getString(c.getColumnIndex(COLUMN_PRICE)));
         e.setDescription(c.getString(c.getColumnIndex(COLUMN_DESCRIPTION)));
         e.setImage(c.getString(c.getColumnIndex(COLUMN_IMAGE)));
         e.setUrl(c.getString(c.getColumnIndex(COLUMN_URL)));

@@ -64,8 +64,8 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Even
 
         TextView txtPrice = (TextView) eventViewHolder.itemView.findViewById(R.id.txtPrice);
         txtPrice.setText("Consulte");
-        if (event.getPrice() > 0) {
-                txtPrice.setText(event.getPrice().toString());
+        if (event.getPrice() != "") {
+                txtPrice.setText(event.getPrice());
         }
 
         if (!event.getImageBase64().isEmpty()) {

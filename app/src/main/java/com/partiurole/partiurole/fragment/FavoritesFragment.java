@@ -47,7 +47,7 @@ public class FavoritesFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         RecyclerView recyclerView = view.findViewById(R.id.viewFavorites);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setHasFixedSize(true); //teste
+        recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(getFavoritesAdapter(""));
 
         SearchView txtSearchFav = (SearchView) view.findViewById(R.id.txtSearchFav);

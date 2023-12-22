@@ -9,8 +9,8 @@ public class Event {
     private String name;
     @SerializedName("date")
     private String date;
-    @SerializedName("price")
-    private Double price;
+    @SerializedName("formatted_price")
+    private String price;
     @SerializedName("description")
     private String description;
     @SerializedName("image_url")
@@ -28,7 +28,7 @@ public class Event {
     private Boolean isFavorite;
     private String imageBase64;
 
-    public Event(String uuid, String name, String date, Double price, String description, String image, String url, String location, String locationUrl, String createdAt, String updatedAt, Boolean isFavorite) {
+    public Event(String uuid, String name, String date, String price, String description, String image, String url, String location, String locationUrl, String createdAt, String updatedAt, Boolean isFavorite) {
         this.uuid = uuid;
         this.name = name;
         this.date = date;
@@ -70,11 +70,11 @@ public class Event {
         this.date = date;
     }
 
-    public Double getPrice() {
-        return price == null ? 0.0 : price;
+    public String getPrice() {
+        return price == null ? "": price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
