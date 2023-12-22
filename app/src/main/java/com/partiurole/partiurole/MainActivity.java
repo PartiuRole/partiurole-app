@@ -1,23 +1,18 @@
 package com.partiurole.partiurole;
 
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.database.sqlite.SQLiteDatabase;
-import android.os.Bundle;
-
-import com.github.islamkhsh.CardSliderViewPager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.partiurole.partiurole.adapter.EventsAdapter;
-import com.partiurole.partiurole.dao.EventDAO;
 import com.partiurole.partiurole.fragment.FavoritesFragment;
 import com.partiurole.partiurole.fragment.HomeFragment;
 import com.partiurole.partiurole.fragment.SettingsFragment;
-import com.partiurole.partiurole.model.Event;
-import com.partiurole.partiurole.util.MyApplication;
+import com.partiurole.partiurole.util.Sync;
 
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,7 +32,13 @@ public class MainActivity extends AppCompatActivity {
         DataBaseHelper persistenceHelper = DataBaseHelper.getInstance();
         db = persistenceHelper.getWritableDatabase();
 
-        loadFragment(homeFragment);
+        Sync sync = new Sync(new Sync.OnSyncListener() {
+            @Override
+            public void onSyncFinished() {
+                loadFragment(homeFragment);
+            }
+        });
+        sync.execute();
     }
 
     private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {

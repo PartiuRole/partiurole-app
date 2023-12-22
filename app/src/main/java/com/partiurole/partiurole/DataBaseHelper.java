@@ -38,9 +38,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         Log.i("DATABASE", "CREATING TABLES");
         db.execSQL(EventDAO.SCRIPT_CREATE_TABLE);
-        db.execSQL(EventDAO.SCRIPT_INSERT_EVENT1);
-        db.execSQL(EventDAO.SCRIPT_INSERT_EVENT2);
-        db.execSQL(EventDAO.SCRIPT_INSERT_EVENT3);
     }
 
     @Override
